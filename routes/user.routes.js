@@ -7,10 +7,10 @@ import {
   updateUser,
 } from "../controllers/user.controller.js";
 
-const userRoutes = express.Router();
+const router = express.Router();
 
-userRoutes.get("/current", authenticate, currentUser);
-userRoutes.put("/update/:id", authenticate, updateUser);
-userRoutes.delete("/delete/:id", authenticate, deleteUser);
+router.get("/", authenticate, currentUser);
+router.put("/:id", authenticate, updateUser);
+router.delete("/:id", authenticate, deleteUser);
 
-export default userRoutes;
+export default router;

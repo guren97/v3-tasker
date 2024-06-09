@@ -1,18 +1,20 @@
 import express from "express";
 import authenticate from "../middlewares/auth.handler.js";
-
 import {
-  deletePost,
-  getUserPost,
-  setPost,
+  createPost,
+  getPosts,
+  getPostById,
   updatePost,
+  deletePostById,
 } from "../controllers/post.controller.js";
 
-const postRoutes = express.Router();
+const router = express.Router();
 
-postRoutes.post("/new", authenticate, setPost);
-postRoutes.get("/posts", authenticate, getUserPost);
-postRoutes.put("/:id", authenticate, updatePost);
-postRoutes.delete("/:id", authenticate, deletePost);
+// Define routes
+router.post("/", authenticate, createPost);
+router.get("/", authenticate, getPosts);
+router.get("/:id", authenticate, getPostById);
+router.put("/:id", authenticate, updatePost);
+router.delete("/:id", authenticate, deletePostById);
 
-export default postRoutes;
+export default router;

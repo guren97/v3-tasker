@@ -12,15 +12,15 @@ import postRoutes from "./routes/post.routes.js";
 
 // CONFIGURATIONS
 const app = express();
-dotenv.config({ path: "./.env" });
+dotenv.config(); // dotenv will automatically look for .env file in the root directory
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // CALL ROUTES
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/posts", postRoutes);
 
 // ERROR HANDLER
 app.use(errorHandler);
@@ -33,7 +33,9 @@ const startServer = async () => {
       console.log(`Server is running on port ${PORT}...`);
     });
     await connectDB();
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error starting server:", error);
+  }
 };
 
 startServer();
