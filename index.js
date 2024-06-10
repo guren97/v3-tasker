@@ -5,14 +5,14 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import errorHandler from "./middlewares/error.handler.js";
 
-// IMPORT ROUTES
+// IMPORT/DEFINE ROUTES
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
 
 // CONFIGURATIONS
 const app = express();
-dotenv.config(); // dotenv will automatically look for .env file in the root directory
+dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
@@ -38,4 +38,5 @@ const startServer = async () => {
   }
 };
 
+// CALL START SERVER FUNCTION
 startServer();

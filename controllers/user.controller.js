@@ -37,7 +37,7 @@ const updateUser = asyncHandler(async (req, res, next) => {
       return next(
         new ErrorResponse(
           "You are not authorized to update this profile",
-          STATUS.UNAUTHORIZED
+          STATUS.FORBIDDEN
         )
       );
     }
@@ -74,7 +74,7 @@ const deleteUser = asyncHandler(async (req, res, next) => {
       return next(
         new ErrorResponse(
           "You are not authorized to delete this profile",
-          STATUS.UNAUTHORIZED
+          STATUS.FORBIDDEN
         )
       );
     }

@@ -14,7 +14,6 @@ const register = asyncHandler(async (req, res, next) => {
   let { username, user_role, first_name, last_name, email, password } =
     req.body;
 
-  username = username.toLowerCase();
   first_name = first_name.toLowerCase();
   last_name = last_name.toLowerCase();
 

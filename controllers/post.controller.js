@@ -24,6 +24,20 @@ const createPost = asyncHandler(async (req, res, next) => {
   }
 });
 
+const getAllPosts = asyncHandler(async (req, res, next) => {
+  try {
+    const posts = await Post.find();
+    if (!posts || posts.length === 0) {
+      return next(new ErrorResponse("No posts found", STATUS.NOT_FOUND));
+    }
+    res.status(STATUS.OK).json({
+      posts,
+    });
+  } catch (error) {
+    return next(new ErrorResponse(error.message, STATUS.INTERNAL_SERVER_ERROR));
+  }
+});
+
 const getPosts = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
   try {
@@ -120,4 +134,11 @@ const deletePostById = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { createPost, getPosts, getPostById, updatePost, deletePostById };
+export {
+  createPost,
+  getAllPosts,
+  getPosts,
+  getPostById,
+  updatePost,
+  deletePostById,
+};
