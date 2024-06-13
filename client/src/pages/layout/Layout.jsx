@@ -1,6 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar.jsx";
-// import Footer from "../../components/footer/Footer.jsx";
+import { useSelector } from "react-redux";
+
+import { Toaster } from "sonner";
+import { useEffect } from "react";
 const Layout = () => {
   return (
     <>
@@ -10,9 +13,23 @@ const Layout = () => {
 
       <main className="h-dvh bg-gray-50  ">
         <Outlet />
+        <Toaster />
       </main>
     </>
   );
 };
 
-export default Layout;
+const PrivateRoute = () => {
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  return userInfo ? <Outlet /> : <Navigate to="/" replace />;
+};
+
+export { Layout, PrivateRoute };

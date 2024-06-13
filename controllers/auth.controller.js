@@ -66,13 +66,27 @@ const register = asyncHandler(async (req, res, next) => {
 
 const login = asyncHandler(async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username }).select("+password");
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return next(
         new ErrorResponse("Invalid credentials", STATUS.UNAUTHORIZED)
       );
     }
+
+    // const emailValidationError = validateEmail(email);
+    // if (emailValidationError) {
+    //   return next(
+    //     new ErrorResponse(emailValidationError, STATUS.UNPROCESSABLE_ENTITY)
+    //   );
+    // }
+
+    // const passwordValidationError = validatePassword(password);
+    // if (passwordValidationError) {
+    //   return next(
+    //     new ErrorResponse(passwordValidationError, STATUS.UNPROCESSABLE_ENTITY)
+    //   );
+    // }
 
     const matchPasswords = await bcrypt.compare(password, user.password);
     if (!matchPasswords) {

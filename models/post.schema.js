@@ -10,6 +10,10 @@ const PostSchema = mongoose.Schema(
       type: String,
       required: [true, "Please put some contents"],
     },
+    file: {
+      type: String,
+      default: null,
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

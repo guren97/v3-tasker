@@ -70,7 +70,7 @@ const getPostById = asyncHandler(async (req, res, next) => {
 });
 
 const updatePost = asyncHandler(async (req, res, next) => {
-  let { title, content } = req.body;
+  let { title, file, content } = req.body;
 
   const postId = req.params.id;
   const currentUserId = req.user.id;
@@ -94,6 +94,7 @@ const updatePost = asyncHandler(async (req, res, next) => {
       postId,
       {
         title,
+        file,
         content,
       },
       { new: true, runValidators: true }
