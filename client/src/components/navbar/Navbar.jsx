@@ -6,7 +6,8 @@ import { logout as logoutAction } from "../../redux/slices/authSlice";
 
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { NavLink, MobileNavLink } from "./NavLinks.jsx";
-import { Button } from "../ui/button.jsx";
+import { IoExitOutline } from "react-icons/io5";
+import Profile from "../Profile/profile";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -39,67 +40,88 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-4 md:px-16 bg-slate-950 h-16 dark:text-white">
-      <div className="left">
-        <Link>LOGO</Link>
-      </div>
-      <div className="md:hidden">
-        <button
-          type="button"
-          onClick={handleClick}
-          className="text-white focus:outline-none"
-        >
-          {isOpen ? <IoCloseSharp /> : <IoMenuSharp />}
-        </button>
-      </div>
-      <div className="hidden md:block">
-        <ul className="flex space-x-4 items-center">
-          {userInfo ? (
-            <>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/dashboard">Dashboard</NavLink>
-              <Button onClick={logoutHandler}>Logout</Button>
-            </>
-          ) : (
-            <>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/signup">Signup</NavLink>
-            </>
-          )}
-        </ul>
-      </div>
-
-      {isOpen && (
-        <div className="md:hidden absolute z-10 top-16 inset-x-0 bg-slate-900 h-full">
-          <ul className="flex flex-col">
+    <>
+      <nav className="flex justify-between items-center px-4 md:px-16 bg-slate-950 h-16 dark:text-white">
+        <div className="left">
+          <Link className="text-white">LOGO</Link>
+        </div>
+        <div className="md:hidden">
+          <button
+            type="button"
+            onClick={handleClick}
+            className="text-white focus:outline-none"
+          >
+            {isOpen ? <IoCloseSharp /> : <IoMenuSharp />}
+          </button>
+        </div>
+        <div className="hidden md:block">
+          <ul className="flex space-x-4 items-center">
             {userInfo ? (
               <>
-                <MobileNavLink to="/" onClick={handleClick}>
-                  Home
-                </MobileNavLink>
-                <MobileNavLink to="/dashboard" onClick={handleClick}>
-                  Dashboard
-                </MobileNavLink>
-                <Button onClick={logoutHandler}>Logout</Button>
+                <NavLink to="/">Home</NavLink>
+
+                <Profile />
+                {/* <Button
+                className="hover:bg-slate-700  bg-slate-600"
+                size="sm"
+                onClick={logoutHandler}
+              >
+                <span className="flex align-middle items-center space-x-1">
+                  <p>Logout</p>
+                  <IoExitOutline className="text-lg" />
+                </span>
+              </Button> */}
               </>
             ) : (
               <>
-                <MobileNavLink to="/" onClick={handleClick}>
-                  Home
-                </MobileNavLink>
-                <MobileNavLink to="/login" onClick={handleClick}>
-                  Login
-                </MobileNavLink>
-                <MobileNavLink to="/signup" onClick={handleClick}>
-                  Signup
-                </MobileNavLink>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/signup">Signup</NavLink>
               </>
             )}
           </ul>
         </div>
-      )}
-    </nav>
+
+        {isOpen && (
+          <div className="md:hidden absolute z-10 top-16 inset-x-0 bg-slate-900 h-full">
+            <ul className="flex flex-col">
+              {userInfo ? (
+                <>
+                  <MobileNavLink to="/" onClick={handleClick}>
+                    Home
+                  </MobileNavLink>
+                  <MobileNavLink to="/dashboard" onClick={handleClick}>
+                    Dashboard
+                  </MobileNavLink>
+                  <MobileNavLink
+                    className="hover:bg-slate-700  bg-slate-600"
+                    size="sm"
+                    onClick={logoutHandler}
+                  >
+                    <span className="flex align-middle items-center space-x-1">
+                      <p>Logout</p>
+                      <IoExitOutline className="text-lg" />
+                    </span>
+                  </MobileNavLink>
+                </>
+              ) : (
+                <>
+                  <MobileNavLink to="/" onClick={handleClick}>
+                    Home
+                  </MobileNavLink>
+                  <MobileNavLink to="/login" onClick={handleClick}>
+                    Login
+                  </MobileNavLink>
+                  <MobileNavLink to="/signup" onClick={handleClick}>
+                    Signup
+                  </MobileNavLink>
+                </>
+              )}
+            </ul>
+          </div>
+        )}
+      </nav>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { setCredentials } from "../../../redux/slices/authSlice";
 
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import Input from "@/components/ui/Input";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login] = useRegisterMutation();
+  const [register] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -45,7 +46,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await login({ ...formData }).unwrap();
+      const res = await register({ ...formData }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/dashboard");
       toast.success("Created successfully");
@@ -183,30 +184,6 @@ const Signup = () => {
         </div>
       </div>
     </>
-  );
-};
-
-const Input = ({
-  id,
-  type,
-  name,
-  value,
-  autoComplete,
-  onChange,
-  required,
-  className,
-}) => {
-  return (
-    <input
-      id={id}
-      name={name}
-      type={type}
-      value={value}
-      autoComplete={autoComplete}
-      onChange={onChange}
-      required={required}
-      className={`px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${className}`}
-    />
   );
 };
 

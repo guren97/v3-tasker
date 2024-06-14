@@ -12,7 +12,6 @@ const Dashboard = () => {
     }
   }, [navigate, userInfo]);
 
-  // If username exists, render it, otherwise render "Loading..."
   return <div>Dashboard</div>;
 };
 
