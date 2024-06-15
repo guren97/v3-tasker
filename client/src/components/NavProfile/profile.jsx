@@ -8,6 +8,7 @@ import { logout as logoutAction } from "../../redux/slices/authSlice";
 
 import { IoPersonCircleSharp } from "react-icons/io5";
 
+// Dropdown
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +17,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+// Avatar
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const UserProfile = () => {
   // set state of dropdown to false
@@ -60,17 +64,21 @@ const UserProfile = () => {
         <DropdownMenuTrigger>
           {userInfo ? (
             avatar ? (
-              <img
-                src={avatar}
-                alt="avatar"
-                className="w-12 h-12 rounded-full cursor-pointer"
-                onClick={toggleDropdown}
-              />
+              <>
+                <Avatar>
+                  <AvatarImage src={avatar} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </>
             ) : (
-              <IoPersonCircleSharp
-                className="text-white text-4xl cursor-pointer"
-                onClick={toggleDropdown}
-              />
+              <>
+                <Avatar>
+                  <AvatarImage
+                    src={avatar ? avatar : "https://github.com/shadcn.png"}
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </>
             )
           ) : (
             <button
@@ -86,15 +94,17 @@ const UserProfile = () => {
           )}
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent>
-          <DropdownMenuLabel>{fullname}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={logoutHandler}>Signout</DropdownMenuItem>
-        </DropdownMenuContent>
+        <div className=" ">
+          <DropdownMenuContent className="absolute right-2 top-0">
+            <DropdownMenuLabel>{fullname}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={logoutHandler}>Signout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </div>
       </DropdownMenu>
     </div>
   );

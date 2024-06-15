@@ -4,10 +4,39 @@ import { useLogoutMutation } from "@/redux/slices/usersApiSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { logout as logoutAction } from "../../redux/slices/authSlice";
 
-import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
+import { IoMenuSharp, IoCloseSharp, IoMenuOutline } from "react-icons/io5";
 import { NavLink, MobileNavLink } from "./NavLinks.jsx";
 import { IoExitOutline } from "react-icons/io5";
-import Profile from "../Profile/profile";
+import Profile from "../NavProfile/profile";
+import { Button } from "../ui/button";
+
+// Navigation menu
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
+//Drawer
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
+// Toggle switch
+import { Switch } from "@/components/ui/switch";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,85 +70,110 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex justify-between items-center px-4 md:px-16 bg-slate-950 h-16 dark:text-white">
-        <div className="left">
-          <Link className="text-white">LOGO</Link>
-        </div>
-        <div className="md:hidden">
-          <button
-            type="button"
-            onClick={handleClick}
-            className="text-white focus:outline-none"
-          >
-            {isOpen ? <IoCloseSharp /> : <IoMenuSharp />}
-          </button>
-        </div>
-        <div className="hidden md:block">
-          <ul className="flex space-x-4 items-center">
-            {userInfo ? (
-              <>
-                <NavLink to="/">Home</NavLink>
+      <nav className="bg-slate-50 p-2 px-4   ">
+        <Drawer direction="right">
+          {/*   NAVIGATION MENU */}
+          <div>
+            <div className="flex justify-between items-center">
+              {/* LEFT  */}
+              <div>
+                {" "}
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem className=" ">
+                      <Link to="/" legacyBehavior>
+                        <NavigationMenuLink
+                          className={` bg-slate-900 text-black ${navigationMenuTriggerStyle()}`}
+                        >
+                          Home
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
 
-                <Profile />
-                {/* <Button
-                className="hover:bg-slate-700  bg-slate-600"
-                size="sm"
-                onClick={logoutHandler}
-              >
-                <span className="flex align-middle items-center space-x-1">
-                  <p>Logout</p>
-                  <IoExitOutline className="text-lg" />
-                </span>
-              </Button> */}
-              </>
-            ) : (
-              <>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/signup">Signup</NavLink>
-              </>
-            )}
-          </ul>
-        </div>
+                    {userInfo && (
+                      <NavigationMenuItem className=" ">
+                        <Link to="/dashboard" legacyBehavior>
+                          <NavigationMenuLink
+                            className={` bg-slate-900 text-black ${navigationMenuTriggerStyle()}`}
+                          >
+                            Dashboard
+                          </NavigationMenuLink>
+                        </Link>
+                      </NavigationMenuItem>
+                    )}
 
-        {isOpen && (
-          <div className="md:hidden absolute z-10 top-16 inset-x-0 bg-slate-900 h-full">
-            <ul className="flex flex-col">
-              {userInfo ? (
-                <>
-                  <MobileNavLink to="/" onClick={handleClick}>
-                    Home
-                  </MobileNavLink>
-                  <MobileNavLink to="/dashboard" onClick={handleClick}>
-                    Dashboard
-                  </MobileNavLink>
-                  <MobileNavLink
-                    className="hover:bg-slate-700  bg-slate-600"
-                    size="sm"
-                    onClick={logoutHandler}
-                  >
-                    <span className="flex align-middle items-center space-x-1">
-                      <p>Logout</p>
-                      <IoExitOutline className="text-lg" />
-                    </span>
-                  </MobileNavLink>
-                </>
-              ) : (
-                <>
-                  <MobileNavLink to="/" onClick={handleClick}>
-                    Home
-                  </MobileNavLink>
-                  <MobileNavLink to="/login" onClick={handleClick}>
-                    Login
-                  </MobileNavLink>
-                  <MobileNavLink to="/signup" onClick={handleClick}>
-                    Signup
-                  </MobileNavLink>
-                </>
-              )}
-            </ul>
+                    <NavigationMenuItem className=" ">
+                      <Link to="#" legacyBehavior>
+                        <NavigationMenuLink
+                          className={` bg-slate-900 text-black ${navigationMenuTriggerStyle()}`}
+                        >
+                          Documentation
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </div>
+
+              {/* RIGHT  */}
+              <div>
+                <div className="right flex items-center space-x-4">
+                  <div>
+                    {userInfo ? (
+                      <>
+                        <div className="flex items-center space-x-4">
+                          <div>
+                            <Profile />
+                          </div>
+                          {/* <div>
+                            <Switch />
+                          </div> */}
+                          <div>
+                            <DrawerTrigger>
+                              <IoMenuOutline className="text-slate-800 text-4xl" />
+                            </DrawerTrigger>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <NavigationMenu>
+                          <NavigationMenuList>
+                            <NavigationMenuItem>
+                              <Link to="/login" legacyBehavior passHref>
+                                <NavigationMenuLink
+                                  className={`h-8 rounded-sm bg-zinc-900  text-slate-100 hover:bg-zinc-700 hover:text-slate-100 ${navigationMenuTriggerStyle()} `}
+                                >
+                                  Login
+                                </NavigationMenuLink>
+                              </Link>
+                            </NavigationMenuItem>
+                          </NavigationMenuList>
+                        </NavigationMenu>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+          {/* SIDEBAR DRAWER */}
+
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+              <DrawerDescription>
+                This action cannot be undone.
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
       </nav>
     </>
   );

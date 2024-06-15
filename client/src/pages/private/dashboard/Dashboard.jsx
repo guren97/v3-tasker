@@ -12,7 +12,11 @@ const Dashboard = () => {
     }
   }, [navigate, userInfo]);
 
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <div>Dashboard</div>
+    </>
+  );
 };
 
 export default Dashboard;
