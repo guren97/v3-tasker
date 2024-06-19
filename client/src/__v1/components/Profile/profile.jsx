@@ -6,7 +6,7 @@ import { useLogoutMutation } from "@/redux/slices/usersApiSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { logout as logoutAction } from "../../redux/slices/authSlice";
 
-import { IoPersonCircleSharp } from "react-icons/io5";
+import { IoPersonCircleSharp, IoExitOutline } from "react-icons/io5";
 
 // Dropdown
 import {
@@ -31,13 +31,12 @@ const UserProfile = () => {
   // Call logout function from API mutation
   const [logoutApi] = useLogoutMutation();
   const { userInfo } = useSelector((state) => state.auth);
+
   const avatar = userInfo?.user?.avatar;
   const firstName = userInfo?.user?.first_name || "";
-  const lastName = userInfo?.user?.last_Name || "";
-  const email = userInfo?.user?.email;
-  const fullname = `${firstName.charAt(0).toUpperCase() + firstName.slice(1)} ${
-    lastName.charAt(0).toUpperCase() + lastName.slice(1)
-  }`;
+  // const fullname = `${firstName.charAt(0).toUpperCase() + firstName.slice(1)} ${
+  //   lastName.charAt(0).toUpperCase() + lastName.slice(1)
+  // }`;
 
   const logoutHandler = async () => {
     try {
@@ -59,50 +58,43 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative  flex">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          {userInfo ? (
-            avatar ? (
-              <>
-                <Avatar>
-                  <AvatarImage src={avatar} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </>
-            ) : (
-              <>
-                <Avatar>
-                  <AvatarImage
-                    src={avatar ? avatar : "https://github.com/shadcn.png"}
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </>
-            )
-          ) : (
-            <button
-              onClick={toggleDropdown}
-              id="dropdownUserAvatarButton"
-              data-dropdown-toggle="dropdownAvatar"
-              className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              type="button"
-            >
-              <span className="sr-only">Open user menu</span>
-              <IoPersonCircleSharp className="text-white text-4xl cursor-pointer" />
-            </button>
+          {userInfo && (
+            <>
+              <button
+                onClick={toggleDropdown}
+                id="dropdownUserAvatarButton"
+                data-dropdown-toggle="dropdownAvatar"
+                className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                type="button"
+              >
+                <span className="sr-only">Open user menu</span>
+                <IoPersonCircleSharp className="text-white text-4xl cursor-pointer" />
+              </button>
+            </>
           )}
         </DropdownMenuTrigger>
 
         <div className=" ">
-          <DropdownMenuContent className="absolute right-2 top-0">
-            <DropdownMenuLabel>{fullname}</DropdownMenuLabel>
+          <DropdownMenuContent className=" absolute -right-3.5">
+            <DropdownMenuLabel>{firstName}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logoutHandler}>Signout</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={logoutHandler}
+              className="flex space-x-1 justify-center"
+            >
+              <span> Signout </span>
+              <span>
+                {" "}
+                <IoExitOutline />
+              </span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </div>
       </DropdownMenu>

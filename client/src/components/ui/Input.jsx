@@ -1,25 +1,19 @@
-const Input = ({
-  id,
-  type,
-  name,
-  value,
-  autoComplete,
-  onChange,
-  required,
-  className,
-}) => {
-  return (
-    <input
-      id={id}
-      name={name}
-      type={type}
-      value={value}
-      autoComplete={autoComplete}
-      onChange={onChange}
-      required={required}
-      className={`px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${className}`}
-    />
-  );
-};
+import * as React from "react"
 
-export default Input;
+import { cn } from "@/lib/utils"
+
+const Input = React.forwardRef(({ className, type, ...props }, ref) => {
+  return (
+    (<input
+      type={type}
+      className={cn(
+        "flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300",
+        className
+      )}
+      ref={ref}
+      {...props} />)
+  );
+})
+Input.displayName = "Input"
+
+export { Input }

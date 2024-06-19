@@ -7,14 +7,16 @@ import { useEffect } from "react";
 const Layout = () => {
   return (
     <>
-      <nav>
-        <Navbar />
-      </nav>
+      <div className=" relative">
+        <nav>
+          <Navbar />
+        </nav>
 
-      <main className="h-dvh bg-gray-50  ">
-        <Outlet />
-        <Toaster />
-      </main>
+        <main className="absolute w-full h-dvh p-4 bg-slate-100 rounded-b-lg top-16 ">
+          <Outlet />
+          <Toaster />
+        </main>
+      </div>
     </>
   );
 };

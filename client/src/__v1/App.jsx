@@ -1,20 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// rtk -> store
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
-// main layout
-import Layout from "./pages/Layout.jsx";
+// MAIN LAYOUT
+import { Layout } from "./pages/layout/Layout.jsx";
 
-// public routes
-import Home from "./pages/Public/Home.jsx";
-import Login from "./pages/Public/Login.jsx";
-import Signup from "./pages/Public/Signup.jsx";
+// PRIVATE ROUTES LAYOUT
+import { PrivateRoute } from "./pages/layout/Layout.jsx";
 
-// protected routes
-import PrivateRoute from "@/components/PrivateRoute";
-import Dashboard from "./pages/Protected/Dashboard.jsx";
+// PUBLIC ROUTES
+import Home from "./pages/public/home/Home.jsx";
+import Login from "./pages/public/login/Login.jsx";
+import Signup from "./pages/public/signup/Signup.jsx";
+
+// PRIVATE ROUTES
+import Dashboard from "./pages/private/dashboard/Dashboard.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -34,9 +35,12 @@ const App = () => {
           path: "/signup",
           element: <Signup />,
         },
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
       ],
     },
-    // Protected Routes
     {
       path: "/",
       element: <PrivateRoute />,
