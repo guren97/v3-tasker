@@ -15,6 +15,7 @@ import Signup from "./pages/Public/Signup.jsx";
 // protected routes
 import PrivateRoute from "@/components/PrivateRoute";
 import Dashboard from "./pages/Protected/Dashboard.jsx";
+import Profile from "./pages/Protected/Profile.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const App = () => {
         {
           path: "/dashboard",
           element: <Dashboard />,
+        },
+        {
+          path: "/profile/:id",
+          element: <Profile />,
         },
       ],
     },

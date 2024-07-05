@@ -36,7 +36,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   // register api
-  const [register] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -104,6 +104,7 @@ const Signup = () => {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="last_name"
@@ -118,6 +119,7 @@ const Signup = () => {
                 )}
               />
             </div>
+
             <FormField
               control={form.control}
               name="username"
@@ -159,7 +161,7 @@ const Signup = () => {
               )}
             />
             <Button className="w-full" type="submit">
-              Create
+              {isLoading ? "Loading..." : "Sign up"}
             </Button>
           </form>
         </Form>

@@ -32,8 +32,8 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // login api
-  const [login] = useLoginMutation();
+  // login userApiSlice
+  const [login, { isLoading }] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -91,7 +91,7 @@ const Login = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field} />
+                    <Input placeholder="juandelacruz@email.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +111,7 @@ const Login = () => {
               )}
             />
             <Button className="w-full" type="submit">
-              Login
+              {isLoading ? "Loading..." : "Login"}
             </Button>
           </form>
         </Form>
